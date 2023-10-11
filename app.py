@@ -18,10 +18,7 @@ with open ('config.yaml') as config_file:
     config = yaml.safe_load(config_file.read())
     PROJECT_IDS = config['add_issues_to_project']['project_ids']
 
-app_key_path = os.environ['APP_KEY_PATH']
-# Read the bot certificate
-with open(app_key_path) as cert_file:
-    app_key = cert_file.read()
+app_key = os.environ['GITHUB_APP_KEY']
 
 # Create an GitHub integration instance
 git_integration = GithubIntegration(
