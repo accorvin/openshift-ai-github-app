@@ -1,0 +1,19 @@
+---
+version: 1.0
+runtime: python3
+build:
+  commands:
+    build:
+      - pip install -r requirements.txt
+      - mkdir /etc/openshift-ai-project-manager
+      - cp config.yaml /etc/openshift-ai-project-manager/config.yaml
+run:
+  command: python app.py
+  network:
+    port: 5000
+  env:
+    - name: CONFIG_FILE_PATH
+      value: /etc/openshift-ai-project-manager/config.yaml
+  secrets:
+    - name: GITHUB_APP_KEY
+      value-from: "arn:aws:secretsmanager:us-east-1:585132637328:secret:openshift-ai-project-manager-github-app-key-r0Povo"
