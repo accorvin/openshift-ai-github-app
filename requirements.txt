@@ -1,0 +1,4 @@
+flask
+pygithub
+requests
+pyyaml
