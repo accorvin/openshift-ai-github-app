@@ -1,4 +1,4 @@
-# openshift-ai-github-app
+# openshift-ai-project-manager
 
 This is the code for a GitHub app to automate project managment tasks for
 OpenShift AI, leveraging GitHub Issues and Projects.
