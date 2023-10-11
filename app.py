@@ -11,14 +11,16 @@ from github import Github, GithubIntegration
 
 app = Flask(__name__)
 
-app_id = os.environ['GITHUB_APP_ID']
+app_id = '406193' # The unique GitHub App ID for the OpenShift AI Project Manager app
+config_file_path = os.environ['CONFIG_FILE_PATH']
 
 with open ('config.yaml') as config_file:
     config = yaml.safe_load(config_file.read())
     PROJECT_IDS = config['add_issues_to_project']['project_ids']
 
+app_key_path = os.environ['APP_KEY_PATH']
 # Read the bot certificate
-with open('bot_key.pem') as cert_file:
+with open(app_key_path) as cert_file:
     app_key = cert_file.read()
 
 # Create an GitHub integration instance
