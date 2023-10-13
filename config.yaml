@@ -1,0 +1,5 @@
+---
+add_issues_to_project:
+  project_ids:
+    - 1
+    - 2
