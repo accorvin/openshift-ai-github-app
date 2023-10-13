@@ -1,12 +1,21 @@
 #! /usr/bin/env python3
 
+import logging
 import os
 import requests
+import sys
 import traceback
 import yaml
 
 from flask import Flask, request
 from github import Github, GithubIntegration
+
+Log_Format = "%(levelname)s %(asctime)s - %(message)s"
+logging.basicConfig(
+    stream=sys.stdout,
+    filemode="w",
+    format=Log_Format
+)
 
 
 app = Flask(__name__)
@@ -44,14 +53,14 @@ def add_issue_to_project(token, project_id, issue_id):
         'Authorization': f'Bearer {token}'
     }
 
-    print(f'Adding issue {issue_id} to project {project_id}')
+    app.logger.info(f'Adding issue {issue_id} to project {project_id}')
 
     query = 'mutation {addProjectV2ItemById(input: {projectId: \"' + project_id + '\" contentId: \"' + issue_id + '\"}) {item {id}}}'
     result = requests.post('https://api.github.com/graphql',
                             json={'query': query},
                             headers=headers)
     if result.json().get('errors', []):
-        print(f'Failed to add issue to project: {result.json()}')
+        app.logger.error(f'Failed to add issue to project: {result.json()}')
         return False
     return True
 
@@ -87,10 +96,15 @@ def bot():
 
         return 'OK'
     except:
-        print(traceback.format_exc())
+        app.logger.error(traceback.format_exc())
         return 'FAILED'
 
 
 if __name__ == '__main__':
     debug_mode = True if os.environ.get('FLASK_DEBUG', '') else False
     app.run(debug=debug_mode, port=5000)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
