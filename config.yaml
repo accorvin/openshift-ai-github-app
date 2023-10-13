@@ -1,5 +1,5 @@
 ---
 add_issues_to_project:
-  project_ids:
-    - 1
-    - 2
+  target_projects:
+    - openshift-ai-app-testing/1
+    - openshift-ai-app-testing/2

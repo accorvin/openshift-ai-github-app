@@ -25,7 +25,7 @@ config_file_path = os.environ['CONFIG_FILE_PATH']
 
 with open ('config.yaml') as config_file:
     config = yaml.safe_load(config_file.read())
-    PROJECT_IDS = config['add_issues_to_project']['project_ids']
+    PROJECT_IDS = config['add_issues_to_project']['target_projects']
 
 app_key = os.environ['GITHUB_APP_KEY']
 
@@ -85,8 +85,9 @@ def bot():
         
         # Get the unique ID for the project we're targeting
         project_node_ids = []
-        for project_id in PROJECT_IDS:
-            project_node_ids.append(get_project_node_id(token, str(project_id), organization_name))
+        for target_project in PROJECT_IDS:
+            project_org, project_id = target_project.split('/')
+            project_node_ids.append(get_project_node_id(token, str(project_id), project_org))
 
         # Get the unique ID for the issue that was created
         issue_node_id = payload['issue']['node_id']
