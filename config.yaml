@@ -1,5 +1,5 @@
 ---
 add_issues_to_project:
   target_projects:
-    - openshift-ai-app-testing/1
-    - openshift-ai-app-testing/2
+    - opendatahub-io/45
+    - opendatahub-io/40
