@@ -9,7 +9,7 @@ build:
       - mkdir /etc/openshift-ai-project-manager
       - cp config.yaml /etc/openshift-ai-project-manager/config.yaml
 run:
-  command: pipenv run gunicorn -b 0.0.0.0 'app:app'
+  command: pipenv run gunicorn -b 0.0.0.0 app:app
   network:
     port: 8000
   env:
