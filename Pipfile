@@ -9,6 +9,7 @@ pygithub = "*"
 requests = "*"
 pyyaml = "*"
 urllib3 = "==1.26.6"
+gunicorn = "*"
 
 [dev-packages]
 
