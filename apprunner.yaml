@@ -9,7 +9,7 @@ build:
       - mkdir /etc/openshift-ai-project-manager
       - cp config.yaml /etc/openshift-ai-project-manager/config.yaml
 run:
-  command: python app.py
+  command: pipenv run python app.py
   network:
     port: 5000
   env:
