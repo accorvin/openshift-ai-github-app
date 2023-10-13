@@ -1,0 +1,20 @@
+Resources:
+  OpenShiftAIProjectManagerGitHubApp:
+    Type: AWS::AppRunner::Service
+    Properties:
+      ServiceName: openshift-ai-project-manager-github-app
+      SourceConfiguration:
+        AuthenticationConfiguration:
+          ConnectionArn: arn:aws:apprunner:us-east-1:585132637328:connection/accorvin/2b802a3ab23046d9add6e59989feb098
+        AutoDeploymentsEnabled: false # Set to true once the source code stabilizes to limit cost of rebuilds in AWS
+        CodeRepository:
+          RepositoryUrl: "https://github.com/accorvin/openshift-ai-project-manager"
+          SourceCodeVersion:
+            Type: BRANCH
+            Value: main
+          CodeConfiguration:
+            ConfigurationSource: REPOSITORY
+      InstanceConfiguration:
+        Cpu: 0.25 vCPU
+        Memory: 0.5 GB
+        InstanceRoleArn: arn:aws:iam::585132637328:role/openshift-ai-project-manager-github-app
